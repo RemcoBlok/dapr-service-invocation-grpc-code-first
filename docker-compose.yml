@@ -1,0 +1,32 @@
+version: '3.4'
+
+services:
+  greeter.gatewayclient:
+    image: ${DOCKER_REGISTRY-}greetergatewayclient
+    build:
+      context: .
+      dockerfile: Greeter.GatewayClient/Dockerfile
+    ports:
+      - "53000:50001"
+      
+  greeter.gatewayclient-dapr:
+    image: "daprio/daprd:latest"
+    command: [ "./daprd", "-app-id", "greeter-gatewayclient", "-app-port", "80", "-app-protocol", "http" ]
+    depends_on:
+      - greeter.gatewayclient
+    network_mode: "service:greeter.gatewayclient"
+
+  greeter.service:
+    image: ${DOCKER_REGISTRY-}greeterservice
+    build:
+      context: .
+      dockerfile: Greeter.Service/Dockerfile
+    ports:
+      - "54000:50001"
+      
+  greeter.service-dapr:
+    image: "daprio/daprd:latest"
+    command: [ "./daprd", "-app-id", "greeter-service", "-app-port", "80", "-app-protocol", "grpc" ]
+    depends_on:
+      - greeter.service
+    network_mode: "service:greeter.service"
