@@ -11,7 +11,7 @@ services:
       
   greeter.gatewayclient-dapr:
     image: "daprio/daprd:latest"
-    command: [ "./daprd", "-app-id", "greeter-gatewayclient", "-app-port", "80", "-app-protocol", "http" ]
+    command: [ "./daprd", "-app-id", "greeter-gatewayclient", "-app-port", "80", "-app-protocol", "grpc" ]
     depends_on:
       - greeter.gatewayclient
     network_mode: "service:greeter.gatewayclient"

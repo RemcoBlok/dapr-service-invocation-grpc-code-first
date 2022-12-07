@@ -36,10 +36,7 @@ builder.Services.AddDaprClient();
 //    });
 //});
 
-builder.Services.AddSingleton(_ =>
-{
-    return DaprClient.CreateInvocationInvoker("greeter-service").CreateGrpcService<IGreeterService>();
-});
+builder.Services.AddSingleton(_ => DaprClient.CreateInvocationInvoker("greeter-service").CreateGrpcService<IGreeterService>());
 
 var app = builder.Build();
 
@@ -56,7 +53,7 @@ app.MapGet("/greeter/sayhello", async (IGreeterService greeterService, string na
     var reply = await greeterService.SayHelloAsync(request);
     return Results.Ok(reply.Message);
 })
-.WithName("Greeter")
+.WithName("Greeter.SayHello")
 .WithOpenApi();
 
 app.Run();
