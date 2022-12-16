@@ -1,5 +1,5 @@
 dapr run `
-    --app-id greeter-gatewayclient `
+    --app-id greeter-api `
     --app-port 5244 `
     --app-protocol http `
     --dapr-http-port 3502 `

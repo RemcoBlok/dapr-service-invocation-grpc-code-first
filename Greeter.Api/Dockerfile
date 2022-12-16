@@ -6,17 +6,17 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Greeter.GatewayClient/Greeter.GatewayClient.csproj", "Greeter.GatewayClient/"]
+COPY ["Greeter.Api/Greeter.Api.csproj", "Greeter.Api/"]
 COPY ["Greeter.Interfaces/Greeter.Interfaces.csproj", "Greeter.Interfaces/"]
-RUN dotnet restore "Greeter.GatewayClient/Greeter.GatewayClient.csproj"
+RUN dotnet restore "Greeter.Api/Greeter.Api.csproj"
 COPY . .
-WORKDIR "/src/Greeter.GatewayClient"
-RUN dotnet build "Greeter.GatewayClient.csproj" -c Release -o /app/build
+WORKDIR "/src/Greeter.Api"
+RUN dotnet build "Greeter.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Greeter.GatewayClient.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Greeter.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Greeter.GatewayClient.dll"]
+ENTRYPOINT ["dotnet", "Greeter.Api.dll"]

@@ -6,7 +6,7 @@
     <ProjectGuid>5b1cb848-2d15-4a9e-b2ff-33b9fbdcfeef</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
-    <DockerServiceName>greeter.gatewayclient</DockerServiceName>
+    <DockerServiceName>greeter.api</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">

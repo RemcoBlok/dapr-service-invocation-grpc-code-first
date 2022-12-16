@@ -6,6 +6,6 @@ namespace Greeter.Interfaces
     public class HelloRequest
     {
         [DataMember(Order = 1)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 }
