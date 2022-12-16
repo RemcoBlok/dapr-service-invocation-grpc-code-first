@@ -15,27 +15,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDaprClient();
-//builder.Services.AddCodeFirstGrpcClient<IGreeterService>(clientFactoryOptions =>
-//{
-//    // Address of grpc server
-//    //clientFactoryOptions.Address = new Uri("http://localhost:50001");
-
-//    // another channel options (based on best practices docs on https://docs.microsoft.com/en-us/aspnet/core/grpc/performance?view=aspnetcore-6.0)
-//    clientFactoryOptions.ChannelOptionsActions.Add(channelOptions =>
-//    {
-//        channelOptions.HttpHandler = new SocketsHttpHandler()
-//        {
-//            // keeps connection alive
-//            PooledConnectionIdleTimeout = Timeout.InfiniteTimeSpan,
-//            KeepAlivePingDelay = TimeSpan.FromSeconds(60),
-//            KeepAlivePingTimeout = TimeSpan.FromSeconds(30),
-
-//            // allows channel to add additional HTTP/2 connections
-//            EnableMultipleHttp2Connections = true
-//        };
-//    });
-//});
-
 builder.Services.AddSingleton(_ => DaprClient.CreateInvocationInvoker("greeter-service").CreateGrpcService<IGreeterService>());
 
 var app = builder.Build();
